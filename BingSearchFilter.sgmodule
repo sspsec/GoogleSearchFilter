@@ -1,0 +1,11 @@
+#!name=Bing 搜索结果过滤器
+#!desc=在 Bing 搜索结果里，隐藏不想要的网站的结果。还结果页一个清净。
+#!author=sspsec
+#!homepage=https://github.com/sspsec/GoogleSearchFilter
+#!category=Filter
+#!arguments=Websites:"csdn.net,gitcode.com,gitcode.net,gitcode.host,zhidao.baidu.com,jingyan.baidu.com",Combine:true,Toggle:false
+#!arguments-desc=Websites:网站列表，用逗号分开，可以包含路径，不支持正则。\nCombine:是否将自定义的名单和内置名单合并，true为是，其它为否。\nToggle:是否显示有多少条结果被隐藏以及显示/隐藏开关。true为显示，其它为隐藏。\n需要注意的是，如果开启 Toggle 选项，首次加载时会出现一定延迟。
+[Script]
+BingSearchFilter = type=http-response,pattern="^https:\\/\\/(www|cn|global)\\.bing\\.com\\/search",requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/sspsec/GoogleSearchFilter/refs/heads/main/bing-search-filter.js,argument="websites={{{Websites}}}&combine={{{Combine}}}&toggle={{{Toggle}}}"
+[MITM]
+hostname = %APPEND% www.bing.com cn.bing.com
